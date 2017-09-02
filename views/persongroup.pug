@@ -1,0 +1,47 @@
+extends layout
+
+block content
+    script(src="/javascripts/persongroup.js")
+    h1= "Welcome to " + groupJson.name
+    p= groupJson.description
+    .col-sm-6
+        h3= "Persons in " + id + ":"
+        table.table.table-striped.table-bordered
+            thead
+                tr
+                    th="Person Name"
+                    th="Description"
+                    th="Faces"
+                    th="Delete"
+            tbody.person-table
+                for person in persons
+                    tr(id='tr_' + person.personId)
+                        td
+                            a(href='/persongroup/'+ id +'/person/'+ person.personId) #{person.name}
+                        td=person.userData
+                        td=''
+                        td
+                            a.delete(id=person.personId) Delete
+
+        h3= "Create a new person:"
+        form(name="new-person")
+            div.form-group
+                label(for='name') Name:
+                input#name.form-control(type='text', placeholder='Person Name' name='name')
+            div.form-group
+                label(for='userData') Description:
+                input#userData.form-control(type='text', placeholder='Person Description' name='user_data')
+            button#submit-button.btn.btn-primary(type="submit") Submit
+        .results
+
+        button.btn.btn-lg.btn-success.train Start Training
+        .train-results
+    .col-sm-6
+        br
+        h3= "identify a face"
+        form(name="identify")
+            div.form-group
+                label(for='imgUrl') Name:
+                input#imgUrl.form-control(type='text', placeholder='Image URL' name='imgUrl')
+            button#identify-button.btn.btn-primary(type="submit") Identify
+        .identify-results

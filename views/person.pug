@@ -1,0 +1,20 @@
+extends layout
+
+block content
+    script(src="/javascripts/person.js")
+
+    h1= person.name
+    p= person.userData
+    p= "face ids:"
+    ul.face-list
+    for faceId in person.persistedFaceIds
+        li= faceId
+
+    p= "Add a Person Face to " + person.name
+    form(name="new-face")
+        div.form-group
+            label(for='img_url') Image URL:
+            p= "enter a url of an image with this persons face clearly visible. make sure there is only one face in the image"
+            input#img_url.form-control(type='text', placeholder='image url' name='image_url')
+        button#submit-button.btn.btn-primary(type="submit") Submit
+    .results
